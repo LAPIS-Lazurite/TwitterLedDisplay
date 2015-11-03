@@ -115,22 +115,22 @@ void setup(void)
 
 	Serial.begin(115200);
 	
-	msg = SubGHz.init();
-	if(msg != SUBGHZ_OK)
-	{
-		SubGHz.msgOut(msg);
-		while(1){ }
-	}
-	
-	myAddress = SubGHz.getMyAddress();
+//	msg = SubGHz.init();
+//	if(msg != SUBGHZ_OK)
+//	{
+//		SubGHz.msgOut(msg);
+//		while(1){ }
+//	}
+//	
+//	myAddress = SubGHz.getMyAddress();
 	Serial.print("myAddress1 = ");
 	Serial.println_long(myAddress,HEX);	
-	msg = SubGHz.begin(SUBGHZ_CH, SUBGHZ_PANID,  SUBGHZ_100KBPS, SUBGHZ_PWR_20MW);
-	if(msg != SUBGHZ_OK)
-	{
-		SubGHz.msgOut(msg);
-		while(1){ }
-	}
+//	msg = SubGHz.begin(SUBGHZ_CH, SUBGHZ_PANID,  SUBGHZ_100KBPS, SUBGHZ_PWR_20MW);
+//	if(msg != SUBGHZ_OK)
+//	{
+//		SubGHz.msgOut(msg);
+//		while(1){ }
+//	}
 	LedDotMatrix.init();
 	
 	/*
@@ -155,10 +155,10 @@ void loop(void)
 	uint32_t st_time;
 	
 	
-	SubGHz.rxEnable(NULL);
+//	SubGHz.rxEnable(NULL);
 	
-	SubGHz.send(0xABCD,0x5FFA,"Twitter Beacon",sizeof("TwitterBeacon"),NULL);
-	
+//	SubGHz.send(0xABCD,0xAC54,"Twitter Beacon",sizeof("TwitterBeacon"),NULL);
+/*	
 	st_time = millis();
 	while((millis()-st_time) < 1000)
 	{
@@ -171,7 +171,7 @@ void loop(void)
 		}
 	}
 	SubGHz.rxDisable();
-
+*/
 	Serial.println_long((long)len,HEX);
 	len = Flash.read(0,0);
 	Serial.print("lo_size=");
