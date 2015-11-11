@@ -93,10 +93,10 @@ class MainFunction
   font = CSV.table('font.csv')
 
   client = Twitter::REST::Client.new do |config|
-    config.consumer_key        = "Kdg5S2vQwO4XRhxP3JZ20TnsB"
-    config.consumer_secret     = "eXzvxEtp3bgT2kjLm91qIfHwCTg0U5cAbHUfgieUQw5IljC4yC"
-    config.access_token        = "4032832034-M9EPuDRspayhUOht5XV33Auo2Qk5Q8VmYdv1oh9"
-    config.access_token_secret = "VjmUG1ADKurTO1se1rKahsNUIF2Rb9x66eRIOL0qtmX1e"
+    config.consumer_key        = "hogehogehogehogehogehoge"
+    config.consumer_secret     = "hogehogehogehogehogehoge"
+    config.access_token        = "hogehogehogehogehogehoge"
+    config.access_token_secret = "hogehogehogehogehogehoge"
   end
 
   while finish_flag==0 do
@@ -113,12 +113,6 @@ class MainFunction
 	#end
 
 	# 特定ユーザのtimelineを件数(1件)指定して取得
-	# client.user_timeline("WWWWWW_BOT", { count: 1 } ).each do |timeline|
-	# client.user_timeline("WWWWWW_BOT", { count: 1 } ).each do |timeline|
-	# client.user_timeline("LazuriteSS", { count: 1 } ).each do |timeline|
-	# client.user_timeline("NagadenTraffic", { count: 1 } ).each do |timeline|
-	# client.user_timeline("YahooNewsTopics", { count: 1 } ).each do |timeline|
-	# client.user_timeline("lapis_nagasaki", { count: 1 } ).each do |timeline|
 	  client.user_timeline("nhk_news", { count: 1 } ).each do |timeline|
 	    $message = client.status(timeline.id).text
 		if $tweetTime == timeline.created_at then
