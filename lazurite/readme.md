@@ -16,21 +16,24 @@ LedDotMatrixの初期設定をします。
 端子は2-10がライブラリ内で強制的にアサインされています。
 ###void LedDotMatrix.setMemory(uint8_t *up, uint16_t up_size, uint8_t *lo, uint16_t lo_size)
 ROMまたはRAMに格納されているデータを表示を行います。
-uint8_t *up	上段に表示するデータの先頭ポインタを指定してください。NULLを指定すると何も設定を変更しません。
-uint16_t up_size	上段に表示するデータのサイズを指定します。文字数*8を指定してください。
-uint8_t *lo	下段に表示するデータの先頭ポインタを指定します。NULLを指定すると、何も設定を変更しません。
-uint16_t lo_size	下段に表示するデータのサイズを指定します。文字数*8を指定してください。
+
+  * uint8_t *up		上段に表示するデータの先頭ポインタを指定してください。NULLを指定すると何も設定を変更しません。
+  * uint16_t up_size;		上段に表示するデータのサイズを指定します。文字数*8を指定してください。
+  * uint8_t *lo;		下段に表示するデータの先頭ポインタを指定します。NULLを指定すると、何も設定を変更しません。
+  * uint16_t lo_size;		下段に表示するデータのサイズを指定します。文字数*8を指定してください。
 
 ###void LedDotMatrix.setFlash(uint8_t up_sector, uint16_t up_offset, uint16_t up_size, uint8_t lo_sector,uint16_t lo_offset, uint16_t lo_size)
 Flashメモリに格納されたデータの表示を行います。
-uint8_t up_sector	上段に表示するメモリのセクタを指定します。
-uint16_t　up_offset	上段に表示するメモリの番地を指定します。
-uint16_t up_size	上段に表示をするデータのサイズを指定します。文字列*8を指定してください。サイズを0にすると何も設定を変更しません。
-uint8_t lo_sector	下段に表示するメモリのセクタを指定します。
-uint16_t lo_offset	下段に表示するメモリの番地を指定します。
-uint16_t lo_size	下段に表示するデータのサイズを指定します。文字数*8を指定してください。サイズを0にすると何も設定を変更しません。
+
+ * uint8_t up_sector	上段に表示するメモリのセクタを指定します。
+ * uint16_t　up_offset	上段に表示するメモリの番地を指定します。
+ * uint16_t up_size	上段に表示をするデータのサイズを指定します。文字列*8を指定してください。サイズを0にすると何も設定を変更しません。
+ * uint8_t lo_sector	下段に表示するメモリのセクタを指定します。
+ * uint16_t lo_offset	下段に表示するメモリの番地を指定します。
+ * uint16_t lo_size	下段に表示するデータのサイズを指定します。文字数*8を指定してください。サイズを0にすると何も設定を変更しません。
 ###void LedDotMatrix.shift(int speed, bool up_shift, bool lo_shift)
 LedDotMatrixの表示を行います。
 int speed	1文字の表示速度を指定するものです。400で約1秒間の表示となります。
-bool up_shift	上段の文字のスクロールの有無を指定します。falseでスクロールなし、trueでスクロールありです。
-bool lo_shift	下段の文字のスクロールの有無を指定します。falseでスクロールなし、trueでスクロールありです。
+
+  * bool up_shift	上段の文字のスクロールの有無を指定します。falseでスクロールなし、trueでスクロールありです。
+  * bool lo_shift	下段の文字のスクロールの有無を指定します。falseでスクロールなし、trueでスクロールありです。
