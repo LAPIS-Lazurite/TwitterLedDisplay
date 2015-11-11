@@ -1,39 +1,42 @@
-#TwitterLedDisplay.c�ɂ���
+#TwitterLedDisplay.cについて
 
-##�T�v
-Raspberry Pi���瑗�M���ꂽLED�̃r�b�g�}�b�v�f�[�^��ML620Q504�����f�[�^Flash�������ɕۑ����ALED�h�b�g�}�g���N�X�𐧌䂵�ĕ\�����s���v���O�����ł��B
+##概要
+Raspberry Piから送信されたLEDのビットマップデータをML620Q504内蔵データFlashメモリに保存し、LEDドットマトリクスを制御して表示を行うプログラムです。
 
-Lazurite Sub-GHz��"TwitterBeacon"�Ƃ����e�L�X�g���b�Z�[�W��Raspberry Pi�ɑ��M���ĂP�b�ԁARaspberry Pi�ɕ\���p�f�[�^�̃��N�G�X�g�𑗐M���܂��B�P�b�ȓ��Ƀf�[�^����M�����炻�̒l��Flash�������ɕۑ����܂��BRaspberry Pi����̑��M���Ȃ���Εۑ�����Ă���f�[�^��\�����܂��B
-Raspberry Pi���̃v���O�����́A"get_tl_display.rb"���g�p���Ă��������B
-##���ӎ���
+Lazurite Sub-GHzは"TwitterBeacon"というテキストメッセージをRaspberry Piに送信して１秒間、Raspberry Piに表示用データのリクエストを送信します。１秒以内にデータを受信したらその値をFlashメモリに保存します。Raspberry Piからの送信がなければ保存されているデータを表示します。
+Raspberry Pi側のプログラムは、"get_tl_display.rb"を使用してください。
 
- 1. �ۑ��ł��镶�����127�����ł��B����ȏ�̓���͕ۏ؂��Ă��܂���B�C�����Ďg�p���Ă��������B
- 2. ����t�H���g���g�p���Ă��܂��B�\���ł��Ȃ��f�[�^������̂ł����ӂ��������B
+本システムは、Flashメモリのセクタ0にunsigned　short型のデータサイズ(文字数*8)の値が格納されるようになっており、そのサイズ分のデータを表示するように設計されています。
 
-##TwitterLedDisplay�̕ύX���@
+##注意事項
+
+ 1. 保存できる文字列は127文字です。それ以上の動作は保証していません。気をつけて使用してください。
+ 2. 美咲フォントを使用しています。表示できないデータがあるのでご注意ください。
+
+##TwitterLedDisplayの変更方法
 ###LedDotMatrix.init();
-LedDotMatrix�̏����ݒ�����܂��B
-�[�q��2-10�����C�u�������ŋ����I�ɃA�T�C������Ă��܂��B
+LedDotMatrixの初期設定をします。
+端子は2-10がライブラリ内で強制的にアサインされています。
 ###void LedDotMatrix.setMemory(uint8_t *up, uint16_t up_size, uint8_t *lo, uint16_t lo_size)
-ROM�܂���RAM�Ɋi�[����Ă���f�[�^��\�����s���܂��B
+ROMまたはRAMに格納されているデータを表示を行います。
 
-  * uint8_t *up		��i�ɕ\������f�[�^�̐擪�|�C���^���w�肵�Ă��������BNULL���w�肷��Ɖ����ݒ��ύX���܂���B
-  * uint16_t up_size;		��i�ɕ\������f�[�^�̃T�C�Y���w�肵�܂��B������*8���w�肵�Ă��������B
-  * uint8_t *lo;		���i�ɕ\������f�[�^�̐擪�|�C���^���w�肵�܂��BNULL���w�肷��ƁA�����ݒ��ύX���܂���B
-  * uint16_t lo_size;		���i�ɕ\������f�[�^�̃T�C�Y���w�肵�܂��B������*8���w�肵�Ă��������B
+  * uint8_t *up		上段に表示するデータの先頭ポインタを指定してください。NULLを指定すると何も設定を変更しません。
+  * uint16_t up_size;		上段に表示するデータのサイズを指定します。文字数*8を指定してください。
+  * uint8_t *lo;		下段に表示するデータの先頭ポインタを指定します。NULLを指定すると、何も設定を変更しません。
+  * uint16_t lo_size;		下段に表示するデータのサイズを指定します。文字数*8を指定してください。
 
 ###void LedDotMatrix.setFlash(uint8_t up_sector, uint16_t up_offset, uint16_t up_size, uint8_t lo_sector,uint16_t lo_offset, uint16_t lo_size)
-Flash�������Ɋi�[���ꂽ�f�[�^�̕\�����s���܂��B
+Flashメモリに格納されたデータの表示を行います。
 
- * uint8_t up_sector	��i�ɕ\�����郁�����̃Z�N�^���w�肵�܂��B
- * uint16_t�@up_offset	��i�ɕ\�����郁�����̔Ԓn���w�肵�܂��B
- * uint16_t up_size	��i�ɕ\��������f�[�^�̃T�C�Y���w�肵�܂��B������*8���w�肵�Ă��������B�T�C�Y��0�ɂ���Ɖ����ݒ��ύX���܂���B
- * uint8_t lo_sector	���i�ɕ\�����郁�����̃Z�N�^���w�肵�܂��B
- * uint16_t lo_offset	���i�ɕ\�����郁�����̔Ԓn���w�肵�܂��B
- * uint16_t lo_size	���i�ɕ\������f�[�^�̃T�C�Y���w�肵�܂��B������*8���w�肵�Ă��������B�T�C�Y��0�ɂ���Ɖ����ݒ��ύX���܂���B
+ * uint8_t up_sector	上段に表示するメモリのセクタを指定します。
+ * uint16_t　up_offset	上段に表示するメモリの番地を指定します。
+ * uint16_t up_size	上段に表示をするデータのサイズを指定します。文字数*8を指定してください。サイズを0にすると何も設定を変更しません。
+ * uint8_t lo_sector	下段に表示するメモリのセクタを指定します。
+ * uint16_t lo_offset	下段に表示するメモリの番地を指定します。
+ * uint16_t lo_size	下段に表示するデータのサイズを指定します。文字数*8を指定してください。サイズを0にすると何も設定を変更しません。
 ###void LedDotMatrix.shift(int speed, bool up_shift, bool lo_shift)
-LedDotMatrix�̕\�����s���܂��B
-int speed	1�����̕\�����x���w�肷����̂ł��B400�Ŗ�1�b�Ԃ̕\���ƂȂ�܂��B
+LedDotMatrixの表示を行います。
+int speed	1文字の表示速度を指定するものです。400で約1秒間の表示となります。
 
-  * bool up_shift	��i�̕����̃X�N���[���̗L�����w�肵�܂��Bfalse�ŃX�N���[���Ȃ��Atrue�ŃX�N���[������ł��B
-  * bool lo_shift	���i�̕����̃X�N���[���̗L�����w�肵�܂��Bfalse�ŃX�N���[���Ȃ��Atrue�ŃX�N���[������ł��B
+  * bool up_shift	上段の文字のスクロールの有無を指定します。falseでスクロールなし、trueでスクロールありです。
+  * bool lo_shift	下段の文字のスクロールの有無を指定します。falseでスクロールなし、trueでスクロールありです。
